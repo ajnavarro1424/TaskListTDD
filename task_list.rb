@@ -2,38 +2,48 @@ require_relative 'task'
 
 class TaskList
   def initialize
-    @task_array = []
-    @done_array = []
-    @notdone_array = []
+    @tasks = []
+    @date_tasks = []
   end
-  # make a method that populates task_array
-  def push_taskarray(task)
-    @task_array << task
+  # All the getter methods below, they return their associated instance variables
+  def tasks
+    @tasks
   end
-  # make a method that retuns task_array
-  def get_taskarray
-    @task_array
-  end
-  # make a method to populate done_array
-  def push_donearray
-    get_taskarray.each do |object|
-      if object.status_done
-        get_donearray.push(object)
+  # Returns the incomplete tasks array
+  def tasks_incomp
+    tasks.select do |task|
+      if !task.done?
+        tasks_incomp << task
       end
     end
   end
-  def push_notdonearray
-    get_taskarray.each do |object|
-      if !object.status_done
-        get_notdonearray.push(object)
+  # Returns the complete tasks array
+  def tasks_done
+    tasks.select do |task|
+      if task.done?
+        tasks << task
       end
     end
   end
-  def get_notdonearray
-    @notdone_array
+  # Returns the date tasks array
+  def date_tasks
+    @date_tasks
   end
-  def get_donearray
-    @done_array
-  end
+  # Returns the date tasks that are incomplete
+  def date_tasks_incomp
+    date_tasks.select do |task|
+      if !task.done?
+        date_tasks_incomp << task
+      end
+    end
 
+  end
+  # Returns the date tasks that are incomplete & due today
+  def date_tasks_incompdue
+    date_tasks.select do |task|
+      if !task.done? && (task.duedate.to_s == Date.today.to_s)
+        date_tasks_incompdue << task
+      end
+    end
+  end
 end

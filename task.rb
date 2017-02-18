@@ -10,26 +10,25 @@ class Task < TaskList
     @done = false
     # status instance variable that holds the status of the task
     @status = ""
-
   end
   # Returns the current title
-  def get_title
+  def title
     @title
   end
   # Returns the current descpription
-  def get_description
+  def description
     @description
   end
   # Marks the status as true, and returns task done
-  def mark_done
+  def done
     @done = true
   end
-  def status_done
+  def done?
     @done
   end
-  def print_status
-    if status_done
-      @status = ("Title: " + get_title.to_s + "Description: " + get_description.to_s)
+  def status
+    if done?
+      @status = ("Title: " + title.to_s + "Description: " + description.to_s)
     end
   end
 
